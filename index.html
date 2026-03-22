@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandeep Negi | Aspiring Cloud Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. Core Variables & Reset
+           ========================================= */
+        :root {
+            --bg-base: #000000;
+            --bg-surface: #111111;
+            --bg-surface-hover: #1a1a1a;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a1a1aa;
+            --accent-primary: #38bdf8; /* Cloud Blue */
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --border-color: #333333;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* =========================================
+           2. Navigation Bar
+           ========================================= */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .logo span { color: var(--accent-primary); }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+
+        /* =========================================
+           3. Hero Section & Terminal
+           ========================================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+            background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 60%);
+        }
+
+        .badge {
+            padding: 0.4rem 1rem;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-primary);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span { color: var(--accent-primary); }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        /* Terminal UI */
+        .terminal {
+            width: 100%;
+            max-width: 600px;
+            background: #0d0d0d;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .terminal-header {
+            background: var(--bg-surface);
+            padding: 0.6rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: #27c93f;
+        }
+
+        .terminal-body .prompt { color: var(--accent-primary); }
+        .terminal-body .command { color: #fff; }
+        .cursor {
+            display: inline-block;
+            width: 8px; height: 15px;
+            background-color: #27c93f;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; }
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-base);
+        }
+        .btn-primary:hover { background: #d4d4d8; transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .btn-outline:hover { background: var(--bg-surface); border-color: #52525b; }
+
+        /* =========================================
+           4. Section Layouts
+           ========================================= */
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        /* =========================================
+           5. About & Journey
+           ========================================= */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .edu-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .edu-badge i { color: var(--accent-primary); font-size: 1.5rem; }
+        .edu-text { text-align: left; }
+        .edu-text h4 { font-size: 1rem; font-weight: 600; }
+        .edu-text span { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* =========================================
+           6. Skills Grid
+           ========================================= */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent-primary);
+            background: var(--bg-surface-hover);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-header i {
+            font-size: 1.8rem;
+            color: var(--accent-primary);
+        }
+
+        .skill-card h3 { font-size: 1.2rem; font-weight: 600; }
+        .skill-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            min-height: 80px;
+        }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tags span {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        /* Focus Highlight for Linux */
+        .focus-card {
+            border-color: rgba(56, 189, 248, 0.4);
+            position: relative;
+        }
+        .focus-card::before {
+            content: 'Current Focus';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--accent-primary);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        /* =========================================
+           7. Footer
+           ========================================= */
+        footer { padding: 4rem 0; text-align: center; }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .social-links a {
+            width: 45px; height: 45px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+        }
+        .social-links a:hover {
+            background: var(--text-primary);
+            color: var(--bg-base);
+        }
+        .copyright { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* =========================================
+           8. Animations (Scroll Reveal)
+           ========================================= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-buttons { flex-direction: column; }
+            .terminal { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">My portfolio<span>.</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="badge">BCA Student | Tech Enthusiast</div>
+            <h1>Building My <br><span>Cloud Foundation</span></h1>
+            <p>I am a web developer and Python programmer transitioning into the world of Cloud Engineering. Currently focused on mastering Linux, Ubuntu, and core system administration.</p>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="terminal-body">
+                    <span class="prompt">sandeep@ubuntu:~$</span> <span class="command" id="typewriter"></span><span class="cursor"></span>
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="https ://www.linkedin.com/in/sandeep-negi-4a2316295" target="_blank" class="btn btn-primary"><i class="fa-brands fa-linkedin"></i> Let's Connect</a>
+                <a href="#about" class="btn btn-outline">My Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container reveal">
+            <div class="section-header">
+                <h2 class="section-title">The Journey So Far</h2>
+                <p class="section-subtitle">From writing lines of code to understanding the servers that run them.</p>
+            </div>
+
+            <div class="about-content">
+                <p>My tech journey started with <strong>Web Development</strong> (HTML, CSS, JS) and <strong>Python</strong>. While I love building web pages and writing scripts, I realized my true passion lies in understanding <em>where</em> these applications live and <em>how</em> they scale.</p>
+                <p>That curiosity led me to <strong>Cloud Engineering</strong>. I am currently dedicating my time to building a strong foundation. Instead of rushing into deploying complex infrastructure, I am taking it step-by-step: starting with the command line, understanding operating systems, and learning networking basics.</p>
+                
+                <div class="edu-badge">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <div class="edu-text">
+                        <h4>Dev Bhoomi Uttarakhand University (DBUU)</h4>
+                        <span>Bachelor of Computer Applications (BCA)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container reveal">
+            <div class="section-header">
+                <h2 class="section-title">Technical Arsenal</h2>
+                <p class="section-subtitle">What I know, and what I am currently focusing on.</p>
+            </div>
+
+            <div class="skills-grid">
+                
+                <div class="skill-card focus-card">
+                    <div class="skill-header">
+                        <i class="fa-brands fa-linux"></i>
+                        <h3>Linux & Ubuntu</h3>
+                    </div>
+                    <p>My current primary focus. Getting hands-on with the terminal, managing file systems, understanding permissions, and basic bash scripting.</p>
+                    <div class="tags">
+                        <span>Ubuntu</span>
+                        <span>CLI Commands</span>
+                        <span>Bash Basics</span>
+                        <span>User Mgmt</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fa-brands fa-python"></i>
+                        <h3>Python Programming</h3>
+                    </div>
+                    <p>Strong understanding of core programming logic, data structures, and writing automation scripts using Python.</p>
+                    <div class="tags">
+                        <span>Python 3</span>
+                        <span>Scripting</span>
+                        <span>Logic Building</span>
+                        <span>OOPs</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fa-solid fa-code"></i>
+                        <h3>Web Development</h3>
+                    </div>
+                    <p>Ability to create responsive and modern user interfaces from scratch using core web technologies.</p>
+                    <div class="tags">
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>JavaScript</span>
+                        <span>Responsive Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container reveal">
+            <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Looking for Mentorship & Internships</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">If you are a cloud professional or recruiter, I would love to connect and learn.</p>
+            
+            <div class="social-links">
+                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="mailto:your.email@example.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            
+            <p class="copyright">&copy; 2026 Sandeep Negi. Always Learning.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Terminal Typing Effect (Ubuntu focused)
+        const textToType = "sudo apt-get update && sudo apt-get install cloud-skills";
+        const typewriterElement = document.getElementById('typewriter');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                typewriterElement.innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, Math.random() * 50 + 40); 
+            } else {
+                setTimeout(() => {
+                    const terminalBody = document.querySelector('.terminal-body');
+                    terminalBody.innerHTML += '<br><br><span style="color:#a1a1aa">Reading package lists... Done</span><br><span style="color:#a1a1aa">Building dependency tree... Done</span><br><span style="color:#27c93f">Success: Linux fundamentals installed. Ready for the next phase.</span>';
+                }, 800);
+            }
+        }
+        setTimeout(typeWriter, 1200);
+
+        // 2. Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealOnScroll.observe(el));
+    </script>
+</body>
+</html>
